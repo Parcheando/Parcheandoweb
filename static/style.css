@@ -1,34 +1,37 @@
 body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
 }
 
-.container {
-    display: flex;
-}
-
-.sidebar {
+.menu {
     width: 250px;
-    background-color: #222;
-    color: white;
-    padding: 1em;
-    height: 100vh;
-    overflow-y: auto;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
-.sidebar a {
-    color: #4fc3f7;
+.nivel-1,
+.nivel-2,
+.nivel-3 {
+    margin: 5px 0;
+}
+
+.nivel-1 a {
+    font-weight: bold;
+    color: #222;
     text-decoration: none;
-    margin-left: 1em;
 }
 
-.content {
-    padding: 2em;
-    flex-grow: 1;
+.nivel-2 {
+    margin-left: 20px;
 }
 
-summary {
-    cursor: pointer;
-    margin-top: 10px;
+.nivel-3 {
+    margin-left: 40px;
+}
+
+a:hover {
+    color: #007bff;
 }
