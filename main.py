@@ -16,10 +16,10 @@ comics = [
     Comic("Avengers Assemble", "Marvel", "Avengers", "2012", 1, "Los héroes se unen")
 ]
 
-@app.route("/")
-def home():
-    empresas = list(set(comic.empresa for comic in comics))
-    return render_template("menu.html", menu=menu)
+# @app.route("/")
+# def home():
+#     empresas = list(set(comic.empresa for comic in comics))
+#     return render_template("menu.html", menu=menu)
 
 @app.route("/")
 def home():
