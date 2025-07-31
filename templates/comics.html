@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ empresa }} / {{ heroe }} / {{ año }}</h2>
+    <ul>
+        {% for comic in comics %}
+            <li>{{ comic }}</li>
+        {% else %}
+            <li>No hay cómics registrados para este año.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
