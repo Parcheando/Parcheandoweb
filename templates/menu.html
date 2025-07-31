@@ -2,30 +2,18 @@
 
 {% block sidebar %}
     <div class="menu">
-        {% if empresas %}
-            {% for empresa in empresas %}
-                <div class="nivel-1">
-                    <a href="{{ url_for('por_empresa', empresa=empresa) }}">{{ empresa }}</a>
-                </div>
+        {% for empresa, heroes in menu.items() %}
+            <div class="nivel-1">{{ empresa }}</div>
+            {% for heroe, anios in heroes.items() %}
+                <div class="nivel-2">{{ heroe }}</div>
+                {% for anio in anios %}
+                    <div class="nivel-3">{{ anio }}</div>
+                {% endfor %}
             {% endfor %}
-        {% elif heroes %}
-            {% for heroe in heroes %}
-                <div class="nivel-2">
-                    <a href="{{ url_for('por_heroe', empresa=empresa, heroe=heroe) }}">{{ heroe }}</a>
-                </div>
-            {% endfor %}
-        {% elif anios %}
-            {% for anio in anios %}
-                <div class="nivel-3">
-                    <a href="{{ url_for('por_anio', empresa=empresa, heroe=heroe, anio=anio) }}">{{ anio }}</a>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No hay datos disponibles.</p>
-        {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}
 
 {% block content %}
-    <h2>Selecciona una opción del menú</h2>
+    <h2>Menú de cómics</h2>
 {% endblock %}
