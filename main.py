@@ -3,28 +3,6 @@ from models import Comic
 
 app = Flask(__name__)
 
-# Datos simulados (futuros datos de BD)
-data = {
-    "Marvel": {
-        "Spider-Man": {
-            "2020": ["Comic #1", "Comic #2", "Comic #3"],
-            "2021": ["Comic #4", "Comic #5"]
-        },
-        "Captain America": {
-            "2021": ["Comic #6", "Comic #7"]
-        }
-    },
-    "DC": {
-        "Batman": {
-            "2020": ["Comic #8", "Comic #9"],
-            "2022": ["Comic #10"]
-        },
-        "Superman": {
-            "2021": ["Comic #11"]
-        }
-    }
-}
-
 comics = [
     Comic("Spiderman #1", "Marvel", "Spiderman", "2001", 1, "Primer número de Spiderman en 2001"),
     Comic("Spiderman #2", "Marvel", "Spiderman", "2001", 2, "Segundo número de Spiderman"),
@@ -39,18 +17,24 @@ comics = [
 ]
 
 @app.route("/")
-def home():
-    return render_template("home.html", data=data)
+def index():
+    empresas = sorted(set(comic.empresa for comic in comics))
+    return render_template("index.html", empresas=empresas)
 
-@app.route('/<empresa>/<heroe>/<anio>')
-def mostrar_comics(empresa, heroe, anio):
-    comics_filtrados = [
-        c for c in comics
-        if c.empresa.lower() == empresa.lower()
-        and c.heroe.lower() == heroe.lower()
-        and c.anio == anio
-    ]
-    return render_template("comics.html", comics=comics_filtrados, empresa=empresa, heroe=heroe, anio=anio)
+@app.route("/<empresa>")
+def por_empresa(empresa):
+    heroes = sorted(set(comic.heroe for comic in comics if comic.empresa == empresa))
+    return render_template("index.html", empresas=[], heroes=heroes, empresa=empresa)
 
+@app.route("/<empresa>/<heroe>")
+def por_heroe(empresa, heroe):
+    anios = sorted(set(comic.anio for comic in comics if comic.empresa == empresa and comic.heroe == heroe))
+    return render_template("index.html", empresas=[], heroes=[], empresa=empresa, heroe=heroe, anios=anios)
+
+@app.route("/<empresa>/<heroe>/<anio>")
+def por_anio(empresa, heroe, anio):
+    filtrados = [comic for comic in comics if comic.empresa == empresa and comic.heroe == heroe and comic.anio == anio]
+    return render_template("comics.html", comics=filtrados)
+    
 if __name__ == "__main__":
     app.run()
