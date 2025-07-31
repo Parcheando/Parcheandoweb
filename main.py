@@ -21,6 +21,28 @@ def home():
     empresas = list(set(comic.empresa for comic in comics))
     return render_template("menu.html", empresas=empresas)
 
+def index():
+    menu = {}
+
+    for comic in comics:
+        empresa = comic.empresa
+        heroe = comic.heroe
+        anio = comic.anio
+
+        if empresa not in menu:
+            menu[empresa] = {}
+        if heroe not in menu[empresa]:
+            menu[empresa][heroe] = set()
+
+        menu[empresa][heroe].add(anio)
+
+    # Convierte los sets a listas ordenadas
+    for empresa in menu:
+        for heroe in menu[empresa]:
+            menu[empresa][heroe] = sorted(menu[empresa][heroe])
+
+    return render_template("menu.html", menu=menu)    
+
 @app.route("/<empresa>")
 def por_empresa(empresa):
     heroes = list(set(comic.heroe for comic in comics if comic.empresa == empresa))
