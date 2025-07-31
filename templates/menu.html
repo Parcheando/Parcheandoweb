@@ -1,47 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Colección de Cómics</title>
-  <style>
-    ul {
-      list-style: none;
-      padding-left: 10px;
-    }
+{% extends "base.html" %}
 
-    .submenu {
-      display: none;
-      padding-left: 20px;
-    }
+{% block title %}Inicio - Colección{% endblock %}
 
-    .clickable {
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <h1>Mi colección</h1>
-
+{% block menu %}
   <ul>
     {% for empresa, heroes in menu.items() %}
       <li>
-        <div class="clickable" onclick="toggle(this)">
-          {{ empresa }}
-        </div>
+        <div class="clickable" onclick="toggle(this)">{{ empresa }}</div>
         <ul class="submenu">
           {% for heroe, anios in heroes.items() %}
             <li>
-              <div class="clickable" onclick="toggle(this)">
-                {{ heroe }}
-              </div>
+              <div class="clickable" onclick="toggle(this)">{{ heroe }}</div>
               <ul class="submenu">
                 {% for anio in anios %}
-                  <li>
-                    <a href="/{{ empresa }}/{{ heroe }}/{{ anio }}">
-                      {{ anio }}
-                    </a>
-                  </li>
+                  <li><a href="/{{ empresa }}/{{ heroe }}/{{ anio }}">{{ anio }}</a></li>
                 {% endfor %}
               </ul>
             </li>
@@ -50,14 +22,9 @@
       </li>
     {% endfor %}
   </ul>
+{% endblock %}
 
-  <script>
-    function toggle(element) {
-      const submenu = element.nextElementSibling;
-      if (submenu && submenu.classList.contains('submenu')) {
-        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-      }
-    }
-  </script>
-</body>
-</html>
+{% block content %}
+  <h1>Bienvenido a tu colección</h1>
+  <p>Selecciona un cómic desde el menú lateral.</p>
+{% endblock %}
