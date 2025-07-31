@@ -41,10 +41,15 @@ comics = [
 def home():
     return render_template("home.html", data=data)
 
-@app.route("/<empresa>/<heroe>/<anio>")
+@app.route('/<empresa>/<heroe>/<anio>')
 def mostrar_comics(empresa, heroe, anio):
-    comics = data.get(empresa, {}).get(heroe, {}).get(anio, [])
-    return render_template("comics.html", empresa=empresa, heroe=heroe, anio=anio, comics=comics)
+    comics_filtrados = [
+        c for c in comics
+        if c.empresa.lower() == empresa.lower()
+        and c.heroe.lower() == heroe.lower()
+        and c.anio == anio
+    ]
+    return render_template("comics.html", comics=comics_filtrados, empresa=empresa, heroe=heroe, anio=anio)
 
 if __name__ == "__main__":
     app.run()
