@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+=menufrom flask import Flask, render_template
 from models import Comic
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ comics = [
 @app.route("/")
 def home():
     empresas = list(set(comic.empresa for comic in comics))
-    return render_template("menu.html", empresas=empresas)
+    return render_template("menu.html", menu=menu)
 
 def index():
     menu = {}
