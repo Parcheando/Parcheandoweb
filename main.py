@@ -17,20 +17,20 @@ comics = [
 ]
 
 @app.route("/")
-def index():
-    empresas = sorted(set(comic.empresa for comic in comics))
-    return render_template("index.html", empresas=empresas)
+def home():
+    empresas = list(set(comic.empresa for comic in comics))
+    return render_template("menu.html", empresas=empresas)
 
 @app.route("/<empresa>")
 def por_empresa(empresa):
-    heroes = sorted(set(comic.heroe for comic in comics if comic.empresa == empresa))
-    return render_template("index.html", empresas=[], heroes=heroes, empresa=empresa)
+    heroes = list(set(comic.heroe for comic in comics if comic.empresa == empresa))
+    return render_template("menu.html", heroes=heroes, empresa=empresa)
 
 @app.route("/<empresa>/<heroe>")
 def por_heroe(empresa, heroe):
-    anios = sorted(set(comic.anio for comic in comics if comic.empresa == empresa and comic.heroe == heroe))
-    return render_template("index.html", empresas=[], heroes=[], empresa=empresa, heroe=heroe, anios=anios)
-
+    anios = list(set(comic.anio for comic in comics if comic.empresa == empresa and comic.heroe == heroe))
+    return render_template("menu.html", anios=anios, empresa=empresa, heroe=heroe)
+    
 @app.route("/<empresa>/<heroe>/<anio>")
 def por_anio(empresa, heroe, anio):
     filtrados = [comic for comic in comics if comic.empresa == empresa and comic.heroe == heroe and comic.anio == anio]
