@@ -1,19 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ heroe }} - {{ anio }}</title>
-</head>
-<body>
-    <h1>{{ empresa }} > {{ heroe }} > {{ anio }}</h1>
-    <ul>
-        {% for comic in comics %}
+{% extends "base.html" %}
+
+{% block title %}Cómics{% endblock %}
+
+{% block menu %}
+  <ul>
+    {% for empresa, heroes in menu.items() %}
+      <li>
+        <div class="clickable" onclick="toggle(this)">{{ empresa }}</div>
+        <ul class="submenu">
+          {% for heroe, anios in heroes.items() %}
             <li>
-                <strong>{{ comic.titulo }}</strong> (N°{{ comic.numero }})<br>
-                {{ comic.descripcion }}
+              <div class="clickable" onclick="toggle(this)">{{ heroe }}</div>
+              <ul class="submenu">
+                {% for anio in anios %}
+                  <li><a href="/{{ empresa }}/{{ heroe }}/{{ anio }}">{{ anio }}</a></li>
+                {% endfor %}
+              </ul>
             </li>
-        {% else %}
-            <li>No se encontraron cómics.</li>
-        {% endfor %}
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <h2>Cómics encontrados:</h2>
+  {% if comics %}
+    <ul>
+      {% for comic in comics %}
+        <li>
+          <strong>{{ comic.titulo }}</strong><br>
+          <em>{{ comic.empresa }} / {{ comic.heroe }} / {{ comic.anio }}</em><br>
+          {{ comic.descripcion }}
+        </li>
+      {% endfor %}
     </ul>
-</body>
-</html>
+  {% else %}
+    <p>No se encontraron cómics.</p>
+  {% endif %}
+{% endblock %}
