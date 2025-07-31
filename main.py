@@ -57,7 +57,26 @@ def por_heroe(empresa, heroe):
 @app.route("/<empresa>/<heroe>/<anio>")
 def por_anio(empresa, heroe, anio):
     filtrados = [comic for comic in comics if comic.empresa == empresa and comic.heroe == heroe and comic.anio == anio]
-    return render_template("comics.html", comics=filtrados)
+
+    # reconstruimos el menú
+    menu = {}
+    for comic in comics:
+        empresa_ = comic.empresa
+        heroe_ = comic.heroe
+        anio_ = comic.anio
+
+        if empresa_ not in menu:
+            menu[empresa_] = {}
+        if heroe_ not in menu[empresa_]:
+            menu[empresa_][heroe_] = set()
+
+        menu[empresa_][heroe_].add(anio_)
+
+    for empresa_ in menu:
+        for heroe_ in menu[empresa_]:
+            menu[empresa_][heroe_] = sorted(menu[empresa_][heroe_])
+
+    return render_template("comics.html", comics=filtrados, menu=menu)
     
 if __name__ == "__main__":
     app.run()
