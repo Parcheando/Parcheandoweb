@@ -1,12 +1,19 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <h2>{{ empresa }} / {{ heroe }} / {{ año }}</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ heroe }} - {{ anio }}</title>
+</head>
+<body>
+    <h1>{{ empresa }} > {{ heroe }} > {{ anio }}</h1>
     <ul>
         {% for comic in comics %}
-            <li>{{ comic }}</li>
+            <li>
+                <strong>{{ comic.titulo }}</strong> (N°{{ comic.numero }})<br>
+                {{ comic.descripcion }}
+            </li>
         {% else %}
-            <li>No hay cómics registrados para este año.</li>
+            <li>No se encontraron cómics.</li>
         {% endfor %}
     </ul>
-{% endblock %}
+</body>
+</html>
