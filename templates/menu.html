@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 
+{% block sidebar %}
+    <div class="menu">
+        {% if empresas %}
+            {% for empresa in empresas %}
+                <div class="nivel-1">
+                    <a href="{{ url_for('por_empresa', empresa=empresa) }}">{{ empresa }}</a>
+                </div>
+            {% endfor %}
+        {% elif heroes %}
+            {% for heroe in heroes %}
+                <div class="nivel-2">
+                    <a href="{{ url_for('por_heroe', empresa=empresa, heroe=heroe) }}">{{ heroe }}</a>
+                </div>
+            {% endfor %}
+        {% elif anios %}
+            {% for anio in anios %}
+                <div class="nivel-3">
+                    <a href="{{ url_for('por_anio', empresa=empresa, heroe=heroe, anio=anio) }}">{{ anio }}</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay datos disponibles.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
 {% block content %}
-<div class="menu">
-    {% if empresas %}
-        {% for empresa in empresas %}
-            <div class="nivel-1">
-                <a href="{{ url_for('por_empresa', empresa=empresa) }}">{{ empresa }}</a>
-            </div>
-        {% endfor %}
-    {% elif heroes %}
-        {% for heroe in heroes %}
-            <div class="nivel-2">
-                <a href="{{ url_for('por_heroe', empresa=empresa, heroe=heroe) }}">{{ heroe }}</a>
-            </div>
-        {% endfor %}
-    {% elif anios %}
-        {% for anio in anios %}
-            <div class="nivel-3">
-                <a href="{{ url_for('por_anio', empresa=empresa, heroe=heroe, anio=anio) }}">{{ anio }}</a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No hay datos disponibles.</p>
-    {% endif %}
-</div>
+    <h2>Selecciona una opción del menú</h2>
 {% endblock %}
