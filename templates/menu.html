@@ -1,19 +1,63 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Colección de Cómics</title>
+  <style>
+    ul {
+      list-style: none;
+      padding-left: 10px;
+    }
 
-{% block sidebar %}
-    <div class="menu">
-        {% for empresa, heroes in menu.items() %}
-            <div class="nivel-1">{{ empresa }}</div>
-            {% for heroe, anios in heroes.items() %}
-                <div class="nivel-2">{{ heroe }}</div>
+    .submenu {
+      display: none;
+      padding-left: 20px;
+    }
+
+    .clickable {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mi colección</h1>
+
+  <ul>
+    {% for empresa, heroes in menu.items() %}
+      <li>
+        <div class="clickable" onclick="toggle(this)">
+          {{ empresa }}
+        </div>
+        <ul class="submenu">
+          {% for heroe, anios in heroes.items() %}
+            <li>
+              <div class="clickable" onclick="toggle(this)">
+                {{ heroe }}
+              </div>
+              <ul class="submenu">
                 {% for anio in anios %}
-                    <div class="nivel-3">{{ anio }}</div>
+                  <li>
+                    <a href="/{{ empresa }}/{{ heroe }}/{{ anio }}">
+                      {{ anio }}
+                    </a>
+                  </li>
                 {% endfor %}
-            {% endfor %}
-        {% endfor %}
-    </div>
-{% endblock %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
 
-{% block content %}
-    <h2>Menú de cómics</h2>
-{% endblock %}
+  <script>
+    function toggle(element) {
+      const submenu = element.nextElementSibling;
+      if (submenu && submenu.classList.contains('submenu')) {
+        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+  </script>
+</body>
+</html>
