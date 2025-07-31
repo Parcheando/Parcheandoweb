@@ -3,29 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Coleccionismo</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <h2>Empresas</h2>
-            {% for empresa in data %}
-                <details>
-                    <summary>{{ empresa }}</summary>
-                    {% for heroe in data[empresa] %}
-                        <details>
-                            <summary>{{ heroe }}</summary>
-                            {% for año in data[empresa][heroe] %}
-                                <a href="/{{ empresa }}/{{ heroe }}/{{ año }}">{{ año }}</a><br>
-                            {% endfor %}
-                        </details>
-                    {% endfor %}
-                </details>
-            {% endfor %}
-        </aside>
-        <main class="content">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
+    <header>
+        <h1>Coleccionismo de Cómics</h1>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>
