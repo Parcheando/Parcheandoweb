@@ -21,7 +21,8 @@ def home():
     empresas = list(set(comic.empresa for comic in comics))
     return render_template("menu.html", menu=menu)
 
-def index():
+@app.route("/")
+def home():
     menu = {}
 
     for comic in comics:
@@ -41,7 +42,7 @@ def index():
         for heroe in menu[empresa]:
             menu[empresa][heroe] = sorted(menu[empresa][heroe])
 
-    return render_template("menu.html", menu=menu)    
+    return render_template("menu.html", menu=menu)
 
 @app.route("/<empresa>")
 def por_empresa(empresa):
