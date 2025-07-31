@@ -28,10 +28,10 @@ data = {
 def home():
     return render_template("home.html", data=data)
 
-@app.route("/<empresa>/<heroe>/<año>")
-def mostrar_comics(empresa, heroe, año):
-    comics = data.get(empresa, {}).get(heroe, {}).get(año, [])
-    return render_template("comics.html", empresa=empresa, heroe=heroe, año=año, comics=comics)
+@app.route("/<empresa>/<heroe>/<anio>")
+def mostrar_comics(empresa, heroe, anio):
+    comics = data.get(empresa, {}).get(heroe, {}).get(anio, [])
+    return render_template("comics.html", empresa=empresa, heroe=heroe, anio=anio, comics=comics)
 
 if __name__ == "__main__":
     app.run()
