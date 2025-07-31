@@ -24,6 +24,19 @@ data = {
     }
 }
 
+comics = [
+    Comic("Spiderman #1", "Marvel", "Spiderman", "2001", 1, "Primer número de Spiderman en 2001"),
+    Comic("Spiderman #2", "Marvel", "Spiderman", "2001", 2, "Segundo número de Spiderman"),
+    Comic("Batman Begins", "DC", "Batman", "2005", 1, "Batman reinicia la saga"),
+    Comic("Batman: Year One", "DC", "Batman", "2005", 2, "Origen moderno del Caballero Oscuro"),
+    Comic("Captain America Lives Again", "Marvel", "Captain America", "2002", 1, "Cap despierta en el siglo XXI"),
+    Comic("The Winter Soldier", "Marvel", "Captain America", "2002", 2, "Bucky regresa como enemigo"),
+    Comic("Iron Man Reboot", "Marvel", "Iron Man", "2010", 1, "Nueva era para Tony Stark"),
+    Comic("Green Lantern Corps", "DC", "Green Lantern", "2003", 1, "Expansión del universo"),
+    Comic("Wonder Woman Origin", "DC", "Wonder Woman", "2001", 1, "El origen de Diana"),
+    Comic("Avengers Assemble", "Marvel", "Avengers", "2012", 1, "Los héroes se unen")
+]
+
 @app.route("/")
 def home():
     return render_template("home.html", data=data)
